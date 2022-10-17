@@ -12,7 +12,11 @@ export default function Profile({ user }) {
 
 
   const handleSubmit = async ({ language, code }) => {
-    console.table({ language, code })
+    const { data } = await axios.post('/api/posts', {
+      language,
+      code,
+    })
+    console.log(data)
   }
 
   return (

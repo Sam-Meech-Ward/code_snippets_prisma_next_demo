@@ -1,14 +1,13 @@
+import { prisma } from '../server/db/client'
+
 import PostSmall from '../components/PostSmall'
 import Button from '../components/Button'
 
 import { useRouter } from "next/router"
 
-export default function Home() {
+export default function Home({ posts }) {
 
   const router = useRouter()
-
-  // post: { id, title, code, language, totalLikes, totalComments, createdAt}
-  const posts = []
 
   return (
     <>
@@ -34,9 +33,25 @@ export default function Home() {
               </li>
             ))}
           </ul>
-          
+
         </div>
       </div>
     </>
   )
+}
+
+export async function getServerSideProps() {
+  // will always run on the server
+  // newest first
+  const posts = await prisma.post.findMany({
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+
+  return {
+    props: {
+      posts: JSON.parse(JSON.stringify(posts)),
+    },
+  }
 }
