@@ -8,9 +8,6 @@ import NextImage from 'next/image'
 
 import appIcon from '../../public/app-icon.png'
 
-
-
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -137,14 +134,12 @@ export default function NavBar(props) {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link href="/profile">
-                                  <a
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
-                                  >
+                                  
                                     Your Profile
-                                  </a>
                                 </Link>
                               )}
                             </Menu.Item>
