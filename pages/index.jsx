@@ -41,8 +41,6 @@ export default function Home({ posts }) {
 }
 
 export async function getServerSideProps() {
-  // will always run on the server
-  // newest first
   const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: 'desc'

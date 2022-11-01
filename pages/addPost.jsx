@@ -4,13 +4,7 @@ import NewPostForm from '../components/NewPostForm'
 
 import axios from 'axios'
 
-import { useRouter } from 'next/router'
-import { useState } from 'react'
-
-export default function Profile({ user }) {
-  const router = useRouter()
-
-
+export default function AddPost() {
   const handleSubmit = async ({ language, code }) => {
     const { data } = await axios.post('/api/posts', {
       language,
