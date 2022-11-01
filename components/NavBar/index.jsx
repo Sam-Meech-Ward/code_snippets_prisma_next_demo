@@ -4,7 +4,7 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Fragment } from 'react'
 import Link from 'next/link'
 
-import NextImage from 'next/future/image'
+import NextImage from 'next/image'
 
 import appIcon from '../../public/app-icon.png'
 
@@ -15,7 +15,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Header(props) {
+export default function NavBar(props) {
   const { navigation, user, onSignIn, onSignOut, Image = NextImage } = props
 
   const onSearch = (e) => {
@@ -31,18 +31,16 @@ export default function Header(props) {
               <div className="flex items-center px-2 lg:px-0">
                 <div className="flex-shrink-0">
                   <Link href="/">
-                    <a>
-                      <Image
-                        className="sm:block h-8 w-auto lg:hidden"
-                        src={appIcon}
-                        alt="slipshods"
-                      />
-                      <Image
-                        className="hidden h-8 w-auto lg:block"
-                        src={appIcon}
-                        alt="slipshods"
-                      />
-                    </a>
+                    <Image
+                      className="sm:block h-8 w-auto lg:hidden"
+                      src={appIcon}
+                      alt="slipshods"
+                    />
+                    <Image
+                      className="hidden h-8 w-auto lg:block"
+                      src={appIcon}
+                      alt="slipshods"
+                    />
                   </Link>
                 </div>
                 <div className="hidden lg:ml-6 lg:block">
@@ -51,13 +49,13 @@ export default function Header(props) {
                       <Link
                         key={index}
                         href={link.href}
-                      ><a
+
                         className={link.current ?
                           "rounded-md bg-gray-600 px-3 py-2 text-sm font-medium text-white" :
                           "rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
                         }
                       > {!!link.Icon ? <link.Icon className="block h-6 w-6" /> : link.name}
-                        </a></Link>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -139,33 +137,17 @@ export default function Header(props) {
                             <Menu.Item>
                               {({ active }) => (
                                 <Link href="/profile">
-                                <a
-                                  className={classNames(
-                                    active ? 'bg-gray-100' : '',
-                                    'block px-4 py-2 text-sm text-gray-700'
-                                  )}
-                                >
-                                  Your Profile
-                                </a>
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            {/* <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  href="/settings"
-                                  >
                                   <a
                                     className={classNames(
                                       active ? 'bg-gray-100' : '',
                                       'block px-4 py-2 text-sm text-gray-700'
                                     )}
                                   >
-                                    Settings
+                                    Your Profile
                                   </a>
                                 </Link>
                               )}
-                            </Menu.Item> */}
+                            </Menu.Item>
                             <Menu.Item>
                               {({ active }) => (
                                 <button
@@ -192,21 +174,18 @@ export default function Header(props) {
           <Disclosure.Panel className="lg:hidden">
             <div className="space-y-1 px-2 pt-2 pb-3">
               {navigation.map((link, index) => (
-                <Link
+                <Disclosure.Button
                   key={index}
                   href={link.href}
-                >
-                  <Disclosure.Button
-                    as="a"
+                  as="Link"
 
-                    className={link.current ?
-                      "flex justify-center rounded-md bg-gray-600 px-3 py-2 text-base font-medium text-white" :
-                      "flex justify-center rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
-                    }
-                  >
-                    {!!link.Icon ? <link.Icon className="block h-6 w-6" /> : link.name}
-                  </Disclosure.Button>
-                </Link>
+                  className={link.current ?
+                    "flex justify-center rounded-md bg-gray-600 px-3 py-2 text-base font-medium text-white" :
+                    "flex justify-center rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
+                  }
+                >
+                  {!!link.Icon ? <link.Icon className="block h-6 w-6" /> : link.name}
+                </Disclosure.Button>
               ))}
             </div>
             <div className="border-t border-gray-700 pt-4 pb-3">
@@ -239,13 +218,6 @@ export default function Header(props) {
                         {user?.email}
                       </div>
                     </div>
-                    {/* <button
-                      type="button"
-                      className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button> */}
                   </div>
                   <div className="mt-3 space-y-1 px-2">
                     <Disclosure.Button
@@ -255,17 +227,6 @@ export default function Header(props) {
                     >
                       Your Profile
                     </Disclosure.Button>
-                    {/* <Link
-                      href="/settings"
-                    >f
-                      <Disclosure.Button
-                        className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                        as="a"
-                        href="/settings"
-                      >
-                        Settings
-                      </Disclosure.Button>
-                    </Link> */}
                     <Disclosure.Button
                       as="button"
                       onClick={onSignOut}

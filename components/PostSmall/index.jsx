@@ -15,7 +15,6 @@ export default function PostSmall({ onLike, onComment, onShare, href, post, user
         <Link
           href={href}
         >
-          <a>
             <div className="mt-2 flex items-center">
               <div className="flex-shrink-0 text-gray-100">
                 {user?.image &&
@@ -50,7 +49,6 @@ export default function PostSmall({ onLike, onComment, onShare, href, post, user
                 <code>{post.code}</code>
               }
             </pre>
-          </a>
         </Link>
       </div>
       <div className="flex flex-col items-center pb-3">
