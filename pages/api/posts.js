@@ -1,10 +1,28 @@
 import { prisma } from '../../server/db/client'
 
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "./auth/[...nextauth]"
+
 function titleFromCode(code) {
   return code.trim().split('\n')[0].replace('// ', '')
 }
 
 async function post(req, res) {
+  const session = await unstable_getServerSession(req, res, authOptions)
+  if (!session) {
+    res.status(401).json({ error: 'Unauthorized' })
+    return
+  }
+
+  const prismaUser = await prisma.user.findUnique({
+    where: { email: session.user.email },
+  })
+
+  if (!prismaUser) {
+    res.status(401).json({ error: 'Unauthorized' })
+    return
+  }
+  
   const { language, code } = req.body
   const title = titleFromCode(code)
   const post = await prisma.post.create({
@@ -12,6 +30,7 @@ async function post(req, res) {
       title,
       language,
       code,
+      userId: prismaUser.id,
     },
   })
   res.status(201).json(post)

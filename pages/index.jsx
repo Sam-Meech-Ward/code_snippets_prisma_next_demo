@@ -24,6 +24,7 @@ export default function Home({ posts }) {
               <li key={post.id}>
                 <PostSmall
                   post={post}
+                  user={post.user}
                   href={`/code/${post.id}`}
                   className='my-10'
                   onLike={() => console.log("like post", post.id)}
@@ -44,6 +45,9 @@ export async function getServerSideProps() {
   const posts = await prisma.post.findMany({
     orderBy: {
       createdAt: 'desc'
+    },
+    include: {
+      user: true,
     }
   })
 
